@@ -1,26 +1,26 @@
 <?php
 
-header("Content-Type:text/xml; charset=UTF-8");
-session_start();
+	header("Content-Type:text/xml; charset=UTF-8");
+	session_start();
 
-    
-mysql_connect('mysql712.xserver.jp', 'noriming_lovelog', 'withlovelogbear') or die(mysql_error());
-mysql_select_db('noriming_lovelog');
-mysql_query('SET NAMES UTF8');
+	    
+	mysql_connect('mysql712.xserver.jp', 'noriming_lovelog', 'withlovelogbear') or die(mysql_error());
+	mysql_select_db('noriming_lovelog');
+	mysql_query('SET NAMES UTF8');
 
-    
-$sql = sprintf('SELECT * FROM ld2cards WHERE userid=%d OR userid=%d ORDER BY cardid DESC',
-mysql_real_escape_string($_SESSION['pid']),
-               mysql_real_escape_string($_SESSION['mid'])
-               );
-$recordSet = mysql_query($sql) or die(mysql_error());
+	    
+	$sql = sprintf('SELECT * FROM ld2cards WHERE userid=%d OR userid=%d ORDER BY cardid DESC',
+					mysql_real_escape_string($_SESSION['pid']),
+	               	mysql_real_escape_string($_SESSION['mid'])
+	               );
+	$recordSet = mysql_query($sql) or die(mysql_error());
 
 ?>
 
 <body>
 
 <?php
-while($carditems = mysql_fetch_assoc($recordSet)):
+	while($carditems = mysql_fetch_assoc($recordSet)):
 ?>
 
 <content>
@@ -32,7 +32,7 @@ while($carditems = mysql_fetch_assoc($recordSet)):
 
 
 <?php 
-endwhile;
+	endwhile;
 ?>
 
 </body>
