@@ -53,22 +53,9 @@
     }
 
 
-    private function queryPhotoname(){
+  
 
-    $sql = sprintf('SELECT *, (userindi + partnerindi) as total FROM  ld2photos WHERE userid=%d OR userid=%d ORDER BY total DESC, created DESC LIMIT 1',
-     mysql_real_escape_string($mid),
-     mysql_real_escape_string($pid)
-    );
-    $recordSet = mysql_query($sql) or die(mysql_error());
-    //セッターを呼び出して値をセットする
-    $record = mysql_fetch_assoc($recordSet);
-
-    $this->setPhotoname($record['filename']);
-    $this->setPhototitle($record['title']);
-
-    return $record['filename'];
-
-    }
+   
 
   }
 
@@ -76,6 +63,20 @@
   $newid = new MyAndPartnerIds($_SESSION['mid'], $_SESSION['pid']);
   $newmid = $newid->mid;
   $content = new ContentsFromSql($_SESSION['mid'], $_SESSION['pid']);
+  //$newphotoname = $content->queryPhotoname();
+
+
+
+    $sql = sprintf('SELECT *, (userindi + partnerindi) as total FROM  ld2photos WHERE userid=%d OR userid=%d ORDER BY total DESC, created DESC LIMIT 1',
+     mysql_real_escape_string($newmid),
+     mysql_real_escape_string($_SESSION['pid'])
+    );
+    $recordSet = mysql_query($sql) or die(mysql_error());
+    //セッターを呼び出して値をセットする
+    $photoname = mysql_fetch_assoc($recordSet);
+
+   
+   
 
   // $photoname2 = $content->queryPhotoname();
 
@@ -95,7 +96,7 @@ echo '2008年', '10月', '7日', '<br />';
 ?>
 </month>
 
-<filename><?php echo htmlspecialchars($newmid, ENT_QUOTES, 'UTF-8'); ?></filename>
+<filename><?php echo htmlspecialchars($photoname['title'], ENT_QUOTES, 'UTF-8'); ?></filename>
 <title><?php echo htmlspecialchars($content->phototitle, ENT_QUOTES, 'UTF-8'); ?></title>
 </content>
 
