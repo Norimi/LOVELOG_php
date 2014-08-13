@@ -43,9 +43,11 @@
   // セッション変数を全て解除する
   $_SESSION = array();
 
-  // セッションを切断するにはセッションクッキーも削除する。
+  // クッキーを削除する
   if (ini_get("session.use_cookies")) {
+    //セッションクッキーのパラメーターを取得する
     $params = session_get_cookie_params();
+    //クッキーの有効期限を過去に設定してクッキーを削除する
     setcookie(session_name(), '', time() - 42000,
         $params["path"], $params["domain"],
         $params["secure"], $params["httponly"]

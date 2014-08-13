@@ -80,16 +80,7 @@ session_start();
      
 
 ?>
-
-<test><?php echo $new_arr; ?></test>
-
-<!------------
-<title><?php echo htmlspecialchars($photoname['title'], ENT_QUOTES, 'UTF-8'); ?></title>
-<userphoto><?php echo htmlspecialchars($userphoto2['profilefile'], ENT_QUOTES, 'UTF-8'); ?></userphoto>
-<partnerphoto><?php echo htmlspecialchars($partnerphoto['profilefile'], ENT_QUOTES, 'UTF-8'); ?></partnerphoto>
-<plantitle><?php echo htmlspecialchars($plantitle['title'], ENT_QUOTES, 'UTF-8'); ?></plantitle>
-<mychat><?php echo htmlspecialchars($newmychat['chat'], ENT_QUOTES, 'UTF-8'); ?></mychat>
-<yourchat><?php echo htmlspecialchars($newyourchat['chat'], ENT_QUOTES, 'UTF-8'); ?></yourchat>
+<?php echo $new_arr; ?>
 
 
 

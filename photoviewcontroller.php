@@ -11,7 +11,7 @@
     $userid = $_POST['userid'];
     $extension = $_POST['extension'];
     $image = date('YmdHis') .$userid .$extension;
-    //エラーをチェックしてファイル名をつくる。userid?を入れる。
+    //エラーをチェックしてファイル名をつくる。useridを入れる。
      move_uploaded_file($_FILES["upfile"]["tmp_name"], "./photo_uploaded/" .$image);  
 
     //DLするときのためファイル情報をServerに入れる
