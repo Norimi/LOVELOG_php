@@ -43,6 +43,11 @@
   class ContentsFromSql extends MyAndPartnerIds {
 
     var $photoname;
+    var $plantitle;
+    var $userphoto;
+    var $partnerphoto;
+    var $newmychat;
+    var $newyourchat;
 
     public function setPhotoname($photoname){
       $this->photoname = $photoname;
@@ -52,52 +57,119 @@
       return $this->photoname;
     }
 
+    public function setPlantitle($plantitle){
+      $this->plantitle = $plantitle;
+    }
 
-  
+    public function getPlantitle(){
+      return $this->plantitle;
+    }
 
-   
+    public function setUserphoto($userphoto){
+      $this->userphoto = $userphoto;
+    }
+
+    public function setPartnerphoto($partnerphoto){
+      $this->partnerphoto = $partnerphoto;
+    }
+
+    public function getPartnerphoto(){
+      return $this->partnerphoto;
+    }
+
+    public function setNewmychat($newmychat){
+      $this->newmychat = $newmychat;
+    }
+
+    public function getNewmychat(){
+      return $this->newmychat;
+    }
+
+    public function setNewyourchat($newyourchat){
+      $this->newyourchat = $newyourchat;
+    }
+
+    public function getNewmycaht(){
+      return $this->newyourchat;
+    }
 
   }
 
 
-  $newid = new MyAndPartnerIds($_SESSION['mid'], $_SESSION['pid']);
-  $newmid = $newid->mid;
+  //$newid = new MyAndPartnerIds($_SESSION['mid'], $_SESSION['pid']);
+  //$newmid = $newid->mid;
+
+  //継承したクラスからスーパークラスのプロパティを呼び出す
   $content = new ContentsFromSql($_SESSION['mid'], $_SESSION['pid']);
+  $mid = $content->mid;
+  $pid = $content->pid;
   //$newphotoname = $content->queryPhotoname();
 
 
+  //クラス外でmysqlにアクセスし、クラスのプロパティを定める方法
+  $sql = sprintf('SELECT *, (userindi + partnerindi) as total FROM  ld2photos WHERE userid=%d OR userid=%d ORDER BY total DESC, created DESC LIMIT 1',
+   mysql_real_escape_string($mid),
+   mysql_real_escape_string($pid)
+  );
+  $recordSet = mysql_query($sql) or die(mysql_error());
+  //セッターを呼び出して値をセットする
+  $photoname = mysql_fetch_assoc($recordSet);
+  $content->setPhotoname($photoname);
 
-    $sql = sprintf('SELECT *, (userindi + partnerindi) as total FROM  ld2photos WHERE userid=%d OR userid=%d ORDER BY total DESC, created DESC LIMIT 1',
-     mysql_real_escape_string($newmid),
-     mysql_real_escape_string($_SESSION['pid'])
-    );
-    $recordSet = mysql_query($sql) or die(mysql_error());
-    //セッターを呼び出して値をセットする
-    $photoname = mysql_fetch_assoc($recordSet);
+  $sql = sprintf('SELECT * FROM ld2plan WHERE userid=%d OR userid=%d ORDER BY planid DESC LIMIT 1',
+   mysql_real_escape_string($mid),
+   mysql_real_escape_string($pid)
+  );
+  $recordSet5 = mysql_query($sql) or die(mysql_error());
+  $plantitle = mysql_fetch_assoc($recordSet5);
+  $content->setPlantitle($plantitle);
 
-   
-   
 
-  // $photoname2 = $content->queryPhotoname();
+  $sql = sprintf('SELECT * FROM ld2members WHERE memberid = %d',
+   mysql_real_escape_string($mid)
+  );
+  $recordSet4 = mysql_query($sql) or die(mysql_error());
+  $userphoto = mysql_fetch_assoc($recordSet4);
+  $content->setUserphoto($userphoto);
 
-   //echo 'こんにちは';
 
-   //echo $_SESSION['pid'];
-  // print $photoname2;
+  $sql = sprintf('SELECT * FROM ld2members WHERE memberid=%d',
+   mysql_real_escape_string($pid)
+  );
+  $recordSet3 = mysql_query($sql) or die(mysql_error());
+  $partnerphoto = mysql_fetch_assoc($recordSet3);
+  $content->setPartnerphoto($partnerphoto);
+
+  
+  $sql = sprintf('SELECT * FROM ld2chat WHERE userid=%d ORDER BY chatid DESC LIMIT 1',
+   mysql_real_escape_string($mid)
+  );
+  $recordSet6 = mysql_query($sql) or die(mysql_error());
+  $newmychat = mysql_fetch_assoc($recordSet6);
+  $content->setNewmychat($newmychat);
+
+
+  $sql = sprintf('SELECT * FROM ld2chat WHERE userid=%d ORDER BY chatid DESC LIMIT 1',
+   mysql_real_escape_string($pid)
+  );
+  $recordSet6 = mysql_query($sql) or die(mysql_error());
+  $newyourchat = mysql_fetch_assoc($recordSet6);
+  $content->setNewyourchat($newyourchat);
+
+
 ?>
 
 
 
 
 <content>
-<month>
-<?php
-echo '2008年', '10月', '7日', '<br />';
-?>
-</month>
-
-<filename><?php echo htmlspecialchars($photoname['title'], ENT_QUOTES, 'UTF-8'); ?></filename>
-<title><?php echo htmlspecialchars($content->phototitle, ENT_QUOTES, 'UTF-8'); ?></title>
+<filename><?php echo htmlspecialchars($content->photoname['filename'], ENT_QUOTES, 'UTF-8'); ?></filename>
+<title><?php echo htmlspecialchars($content->photoname['title'], ENT_QUOTES, 'UTF-8'); ?></title>
+<userphoto><?php echo htmlspecialchars($content->userphoto['profilefile'], ENT_QUOTES, 'UTF-8'); ?></userphoto>
+<partnerphoto><?php echo htmlspecialchars($content->partnerphoto['profilefile'], ENT_QUOTES, 'UTF-8'); ?></partnerphoto>
+<plantitle><?php echo htmlspecialchars($content->plantitle['title'], ENT_QUOTES, 'UTF-8'); ?></plantitle>
+<mychat><?php echo htmlspecialchars($content->newmychat['chat'], ENT_QUOTES, 'UTF-8'); ?></mychat>
+<yourchat><?php echo htmlspecialchars($content->newyourchat['chat'], ENT_QUOTES, 'UTF-8'); ?></yourchat>
 </content>
 
 
