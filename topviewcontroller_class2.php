@@ -42,6 +42,8 @@
 
   class ContentsFromSql extends MyAndPartnerIds {
 
+    //sql文は地で書いて、プロパティのみカプセル化する
+
     var $photoname;
     var $plantitle;
     var $userphoto;
