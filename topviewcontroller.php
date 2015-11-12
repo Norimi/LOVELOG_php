@@ -2,9 +2,8 @@
 
   header("Content-Type:text/xml; charset=UTF-8");
   session_start();
-
-  mysql_connect('mysql712.xserver.jp', 'noriming_lovelog', 'withlovelogbear') or die(mysql_error());
-  mysql_select_db('noriming_lovelog');
+  mysql_connect('mysql1.webcrow-php.netowl.jp', 'norimit_user', 'withlovelogbear') or die(mysql_error());
+  mysql_select_db('norimit_lovelog');
   mysql_query('SET NAMES UTF8');
   
   $sql = sprintf('SELECT *, (userindi + partnerindi) as total FROM  ld2photos WHERE userid=%d OR userid=%d ORDER BY total DESC, created DESC LIMIT 1',
@@ -54,7 +53,7 @@
   
   
   $sql = sprintf('SELECT * FROM ld2chat WHERE userid=%d ORDER BY chatid DESC LIMIT 1',
-   mysql_real_escape_string($_SESSION['pid'])
+    mysql_real_escape_string($_SESSION['pid'])
   );
   $recordSet6 = mysql_query($sql) or die(mysql_error());
   $newyourchat = mysql_fetch_assoc($recordSet6);

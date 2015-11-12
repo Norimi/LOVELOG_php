@@ -1,8 +1,9 @@
 <?php
 
   //写真につけられたインジケーターの値をサーバーに挿入する
-  mysql_connect('mysql712.xserver.jp', 'noriming_lovelog', 'withlovelogbear') or die(mysql_error());
-  mysql_select_db('noriming_lovelog');
+
+  mysql_connect('mysql1.webcrow-php.netowl.jp', 'norimit_user', 'withlovelogbear') or die(mysql_error());
+  mysql_select_db('norimit_lovelog');
   mysql_query('SET NAMES UTF8');
 
   if($_POST['myphoto']==0){

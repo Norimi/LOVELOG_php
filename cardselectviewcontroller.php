@@ -4,9 +4,9 @@
 	session_start();
 
 	    
-	mysql_connect('mysql712.xserver.jp', 'noriming_lovelog', 'withlovelogbear') or die(mysql_error());
-	mysql_select_db('noriming_lovelog');
-	mysql_query('SET NAMES UTF8');
+	mysql_connect('mysql1.webcrow-php.netowl.jp', 'norimit_user', 'withlovelogbear') or die(mysql_error());
+    mysql_select_db('norimit_lovelog');
+    mysql_query('SET NAMES UTF8');
 
 
 	class MyAndPartnerIds{
@@ -16,23 +16,23 @@
 
 		public function __construct($mid, $pid)
 		{
-		$this->mid = $_SESSION['mid'];
-		$this->pid = $_SESSION['pid'];
+			$this->mid = $_SESSION['mid'];
+			$this->pid = $_SESSION['pid'];
 		}
 
 		public function setPid(){
-		$this->pid = $pid;
+			$this->pid = $pid;
 		}
 
 		public function getPid(){
-		return $this->pid;
+			return $this->pid;
 		}
 
 		public function setMid(){
-		$this->mid = $mid;
+			$this->mid = $mid;
 		}
 		public function getMid(){
-		return $this->mid;
+			return $this->mid;
 		}
 
 	}

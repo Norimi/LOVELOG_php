@@ -1,5 +1,5 @@
 <?php
-session_start();    
+	session_start();    
     
     //すべての変数をsessionへ入れていく。余分なセッションは使わない。
     

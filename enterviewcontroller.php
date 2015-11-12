@@ -1,11 +1,8 @@
 <?php
-
-
     header("Content-Type:text/xml; charset=UTF-8");
     session_start();
-    
-    mysql_connect('mysql712.xserver.jp', 'noriming_lovelog', 'withlovelogbear') or die(mysql_error());
-    mysql_select_db('noriming_lovelog');
+    mysql_connect('mysql1.webcrow-php.netowl.jp', 'norimit_user', 'withlovelogbear') or die(mysql_error());
+    mysql_select_db('norimit_lovelog');
     mysql_query('SET NAMES UTF8');
     
     
@@ -31,10 +28,7 @@
     }
     
 ?>
-
-
 <content>
 <error><?php if($_SESSION['error']['email']): ?>error<?php endif; ?></error>
 <pmessage><?php echo htmlspecialchars($table, ENT_QUOTES, 'UTF-8');?></pmessage>
-
 </content>
