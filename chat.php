@@ -3,6 +3,7 @@
     mysql_connect('mysql1.webcrow-php.netowl.jp', 'norimit_user', 'withlovelogbear') or die(mysql_error());
     mysql_select_db('norimit_lovelog');
     mysql_query('SET NAMES UTF8');
+    
 
 	if(isset($_POST['chat'])){
 

@@ -11,7 +11,7 @@
     $extension = $_POST['extension'];
     $image = date('YmdHis') .$userid .$extension;
     //エラーをチェックしてファイル名をつくる。useridを入れる。
-     move_uploaded_file($_FILES["upfile"]["tmp_name"], "./photo_uploaded/" .$image);  
+    move_uploaded_file($_FILES["upfile"]["tmp_name"], "./photo_uploaded/" .$image);  
 
     //DLするときのためファイル情報をServerに入れる
     $sql = sprintf('INSERT INTO ld2photos SET userid=%d, title="%s",filename="%s", created="%s"',
